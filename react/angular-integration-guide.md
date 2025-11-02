@@ -1,11 +1,11 @@
 # Angular Native Federation Integration Guide
 
 ## React App Configuration ✅
-Your React app is correctly configured and running on http://localhost:3001
+Your React app is correctly configured and running on http://localhost:3000
 
 **Exposed Module:**
 - Name: `reactApp`
-- Entry: `http://localhost:3001/remoteEntry.js`
+- Entry: `http://localhost:3000/remoteEntry.js`
 - Exposes: `./App` (the React component)
 
 ---
@@ -26,7 +26,7 @@ In your Angular `federation.manifest.json`:
 
 ```json
 {
-  "reactApp": "http://localhost:3001/remoteEntry.js"
+  "reactApp": "http://localhost:3000/remoteEntry.js"
 }
 ```
 
@@ -132,7 +132,7 @@ import * as ReactDOM from 'react-dom/client';
 
 async ngOnInit() {
   const module = await loadRemoteModule({
-    remoteEntry: 'http://localhost:3001/remoteEntry.js',
+    remoteEntry: 'http://localhost:3000/remoteEntry.js',
     remoteName: 'reactApp',
     exposedModule: './App'
   });
@@ -155,8 +155,8 @@ async ngOnInit() {
 ✅ **SOLVED**: Install React in your Angular project and pass it to the mount function
 
 ### Error: "unknown remote reactApp"
-- Verify React app is running: http://localhost:3001
-- Check remoteEntry.js exists: http://localhost:3001/remoteEntry.js
+- Verify React app is running: http://localhost:3000
+- Check remoteEntry.js exists: http://localhost:3000/remoteEntry.js
 - Ensure federation.manifest.json uses correct name: `reactApp`
 
 ### Error: "Cannot find module 'reactApp/App'"
@@ -167,8 +167,8 @@ async ngOnInit() {
 
 ## Testing
 
-1. **React standalone**: http://localhost:3001 (should show "Hello World!")
-2. **Check remote entry**: http://localhost:3001/remoteEntry.js (should download JS file)
+1. **React standalone**: http://localhost:3000 (should show "Hello World!")
+2. **Check remote entry**: http://localhost:3000/remoteEntry.js (should download JS file)
 3. **Run Angular app**: Should load and display React component without errors
 
 The React "Hello World!" component should appear seamlessly in your Angular app! 🎉

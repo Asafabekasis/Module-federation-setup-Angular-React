@@ -61,7 +61,7 @@ export class ReactWrapperComponent implements OnInit, AfterViewInit {
       }
 
       const script = document.createElement('script');
-      script.src = 'http://localhost:3001/remoteEntry.js';
+      script.src = 'http://localhost:3000/remoteEntry.js';
       script.type = 'text/javascript';
       script.async = true;
       
@@ -132,7 +132,7 @@ export class ReactWrapperComponent implements OnInit, AfterViewInit {
         this.container.nativeElement.innerHTML = `
           <div style="padding: 20px; color: orange; border: 2px solid orange; border-radius: 8px;">
             <h3>⚠️ React Remote Not Available</h3>
-            <p>Make sure your React app is running on http://localhost:3001</p>
+            <p>Make sure your React app is running on http://localhost:3000</p>
             <p>Check the browser console for more details.</p>
           </div>
         `;
