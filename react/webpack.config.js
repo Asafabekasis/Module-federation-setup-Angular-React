@@ -31,6 +31,7 @@ module.exports = {
         './App': './src/App',
         './react': 'react',
         './react-dom': 'react-dom',
+        './react-dom/client': 'react-dom/client',
       },
       shared: {
         react: {

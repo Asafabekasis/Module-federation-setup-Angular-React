@@ -114,8 +114,8 @@ export class ReactWrapperComponent implements OnInit, AfterViewInit {
         const reactFactory = await container.get('./react');
         const React = reactFactory();
         
-        const reactDomFactory = await container.get('./react-dom');
-        const ReactDOM = reactDomFactory();
+        const reactDomClientFactory = await container.get('./react-dom/client');
+        const ReactDOMClient = reactDomClientFactory();
         
         // Get the App component
         const factory = await container.get('./App');
@@ -123,7 +123,7 @@ export class ReactWrapperComponent implements OnInit, AfterViewInit {
         const Component = Module.default || Module;
         
         // Mount React component with props (pass the callback)
-        const root = ReactDOM.createRoot(this.container.nativeElement);
+        const root = ReactDOMClient.createRoot(this.container.nativeElement);
         root.render(React.createElement(Component, {
           onMessageSend: this.handleMessageFromReact
         }));
