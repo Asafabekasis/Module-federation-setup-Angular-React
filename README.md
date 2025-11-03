@@ -46,7 +46,7 @@ graph TB
 
 ```
 📦 module-federation/
-├── 📂 angular/client/          # 🟢 Angular Host (Port 4200)
+├── 📂 angular-host/client/          # 🟢 Angular Host (Port 4200)
 │   ├── src/app/
 │   │   ├── react-wrapper.component.ts      # Loads React remote
 │   │   ├── angular-wrapper.component.ts    # Loads Angular remote
@@ -90,14 +90,14 @@ git clone https://github.com/Asafabekasis/Module-federation-setup-Angular-React.
 cd Module-federation-setup-Angular-React
 
 # Install dependencies for all apps
-cd angular/client && npm install && cd ../..
+cd angular-host/client && npm install && cd ../..
 cd react && npm install && cd ../..
 cd "angular-remote/client" && npm install && cd ../..
 
 # Start all applications (requires 3 terminals)
 
 # Terminal 1 - Angular Host (Port 4200)
-cd angular/client
+cd angular-host/client
 ng serve
 # Running at http://localhost:4200
 
@@ -121,7 +121,7 @@ ng serve
 npm install -g concurrently
 
 # Run all apps at once (from root)
-concurrently "cd angular/client && ng serve" "cd react && npm start" "cd 'angular-remote/client' && ng serve"
+concurrently "cd angular-host/client && ng serve" "cd react && npm start" "cd 'angular-remote/client' && ng serve"
 ```
 
 ## 💡 Key Features
@@ -312,7 +312,7 @@ export const environment = {
 
 ```bash
 # Build all applications
-cd angular/client && ng build --configuration production
+cd angular-host/client && ng build --configuration production
 cd react && npm run build
 cd "angular-remote/client" && ng build --configuration production
 ```
@@ -328,11 +328,11 @@ cd "angular-remote/client" && ng build --configuration production
 
 ```bash
 # Run unit tests
-cd angular/client && ng test
+cd angular-host/client && ng test
 cd react && npm test
 
 # Run e2e tests (if configured)
-cd angular/client && ng e2e
+cd angular-host/client && ng e2e
 ```
 
 ## 🤝 Contributing
