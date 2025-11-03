@@ -1,0 +1,87 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build-angular-host:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: angular/client/package-lock.json
+    
+    - name: Install dependencies
+      working-directory: ./angular/client
+      run: npm ci --legacy-peer-deps
+    
+    - name: Build Angular Host
+      working-directory: ./angular/client
+      run: npm run build -- --configuration production
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: angular-host-dist
+        path: angular/client/dist/
+
+  build-react-remote:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: react/package-lock.json
+    
+    - name: Install dependencies
+      working-directory: ./react
+      run: npm ci
+    
+    - name: Build React Remote
+      working-directory: ./react
+      run: npm run build
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: react-remote-dist
+        path: react/dist/
+
+  build-angular-remote:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      working-directory: ./angular to angular/client
+      run: npm ci --legacy-peer-deps
+    
+    - name: Build Angular Remote
+      working-directory: ./angular to angular/client
+      run: npm run build -- --configuration production
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: angular-remote-dist
+        path: angular to angular/client/dist/
