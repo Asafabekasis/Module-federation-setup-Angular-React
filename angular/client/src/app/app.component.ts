@@ -21,16 +21,19 @@ export class AppComponent implements OnInit {
   constructor(private messageService: MessageService) {}
 
   ngOnInit() {
-    // Listen for messages from React
-    this.messageService.message$.subscribe(message => {
-      this.messageFromReact = message;
+    // Listen for messages from React via custom event
+    window.addEventListener('reactToHost', (event: any) => {
+      if (event.detail) {
+        this.messageFromReact = event.detail;
+        console.log('✅ Message received from React:', event.detail);
+      }
     });
 
-    // Listen for messages from Angular remote (via postMessage from iframe)
-    window.addEventListener('message', (event: MessageEvent) => {
-      if (event.origin === 'http://localhost:61799' && event.data) {
-        this.messageFromAngularRemote = event.data;
-        console.log('✅ Message received from Angular remote:', event.data);
+    // Listen for messages from Angular remote via custom event
+    window.addEventListener('angularRemoteToHost', (event: any) => {
+      if (event.detail) {
+        this.messageFromAngularRemote = event.detail;
+        console.log('✅ Message received from Angular remote:', event.detail);
       }
     });
   }
@@ -48,12 +51,11 @@ export class AppComponent implements OnInit {
 
   sendToAngularRemote() {
     if (this.messageToAngularRemote.trim()) {
-      // Send message to iframe via postMessage
-      const iframe = document.querySelector('iframe');
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage(this.messageToAngularRemote, 'http://localhost:61799');
-        console.log('📤 Sent to Angular Remote:', this.messageToAngularRemote);
-      }
+      // Dispatch custom event that Angular wrapper can listen to
+      window.dispatchEvent(new CustomEvent('hostToAngularRemote', { 
+        detail: this.messageToAngularRemote 
+      }));
+      console.log('📤 Sent to Angular Remote:', this.messageToAngularRemote);
       this.messageToAngularRemote = '';
     }
   }

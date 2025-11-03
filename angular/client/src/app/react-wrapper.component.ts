@@ -45,8 +45,10 @@ export class ReactWrapperComponent implements OnInit, AfterViewInit {
     console.log('Message received from React:', message);
     this.messageFromReact = message;
     this.messageReceived.emit(message);
-    // Send to app component via service
-    this.messageService.sendMessage(message);
+    // Dispatch custom event to app component
+    window.dispatchEvent(new CustomEvent('reactToHost', { 
+      detail: message 
+    }));
   };
 
   private async loadRemoteEntry(): Promise<void> {

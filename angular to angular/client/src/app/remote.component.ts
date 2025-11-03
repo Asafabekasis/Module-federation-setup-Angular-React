@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -235,24 +235,39 @@ export class RemoteComponent implements OnInit {
   inputValue = '';
   messageFromHost = '';
 
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
+
   ngOnInit() {
-    // Listen for messages from the parent (Angular host)
-    window.addEventListener('message', (event: MessageEvent) => {
-      if (event.origin === 'http://localhost:4200' && event.data) {
-        this.messageFromHost = event.data;
-        console.log('✅ Angular Remote received from Host:', event.data);
+    // Listen for custom events from the host (since we're now a web component, not iframe)
+    window.addEventListener('hostToAngularRemote', (event: any) => {
+      if (event.detail) {
+        // Run inside Angular zone to trigger change detection
+        this.ngZone.run(() => {
+          this.messageFromHost = event.detail;
+          console.log('✅ Angular Remote received from Host:', event.detail);
+        });
       }
     });
   }
 
   sendToHost() {
     if (this.inputValue.trim()) {
-      // Send message to parent window (Angular host)
-      if (window.parent) {
-        window.parent.postMessage(this.inputValue, 'http://localhost:4200');
-        console.log('✅ Message sent to Angular host:', this.inputValue);
-      }
+      const messageToSend = this.inputValue;
+      
+      // Clear input FIRST before dispatching
       this.inputValue = '';
+      
+      // Dispatch custom event to host (web component approach)
+      const event = new CustomEvent('angularRemoteToHost', {
+        detail: messageToSend,
+        bubbles: true,
+        composed: true // Allow event to cross shadow DOM boundary
+      });
+      window.dispatchEvent(event);
+      console.log('✅ Message sent to Angular host:', messageToSend);
     }
   }
 }

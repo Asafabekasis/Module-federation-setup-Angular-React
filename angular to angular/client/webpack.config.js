@@ -16,7 +16,7 @@ module.exports = {
       filename: "remoteEntry.js",
       library: { type: "var", name: "angularRemote" },
       exposes: {
-        './RemoteComponent': path.resolve(__dirname, './src/app/remote.component.ts'),
+        './RemoteComponent': path.resolve(__dirname, './src/app/remote-bootstrap.ts'),
       },
       shared: {
         "@angular/core": { 
@@ -55,7 +55,6 @@ module.exports = {
   devServer: {
     port: 61799,
     headers: {
-      'Access-Control-Allow-Origin': 'http://localhost:4200, http://localhost:3000, http://localhost:61799',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
       'Access-Control-Allow-Credentials': 'true',
@@ -66,13 +65,14 @@ module.exports = {
         const referer = req.headers.referer;
         const allowedOrigins = ['http://localhost:4200', 'http://localhost:3000','http://localhost:61799'];
         
-        // Allow direct browser access (no origin header)
-        if (!origin && !referer) {
-          return next();
-        }
-        
-        // Block requests from origins other than allowed origins
-        if (origin && !allowedOrigins.includes(origin)) {
+        // Set CORS header dynamically based on request origin
+        if (origin && allowedOrigins.includes(origin)) {
+          res.setHeader('Access-Control-Allow-Origin', origin);
+        } else if (!origin && !referer) {
+          // Allow direct browser access (no origin header)
+          res.setHeader('Access-Control-Allow-Origin', '*');
+        } else if (origin && !allowedOrigins.includes(origin)) {
+          // Block requests from origins other than allowed origins
           console.log(`❌ Blocked request from origin: ${origin}`);
           return res.status(403).send('Access forbidden: Origin not allowed');
         }
