@@ -4,7 +4,7 @@ import { AngularWrapperComponent } from './angular-wrapper.component';
 
 export const routes: Routes = [
   {
-    path:'',component: AngularWrapperComponent
+    path:'',component: HomeComponent
   },
   {
     path: 'react',
@@ -19,7 +19,7 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {path:'**',component: AngularWrapperComponent}
+  {path:'**',component: HomeComponent}
 
   
 ];
