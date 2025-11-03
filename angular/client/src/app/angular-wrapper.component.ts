@@ -24,7 +24,7 @@ declare const window: any;
 
     .angular-wrapper-container {
       width: 100%;
-      height: 500px;
+      height: 100%;
       overflow: hidden;
     }
 
@@ -65,10 +65,11 @@ export class AngularWrapperComponent implements OnInit {
       const iframe = document.createElement('iframe');
       iframe.src = 'http://localhost:61799';
       iframe.style.width = '100%';
-      iframe.style.height = '500px';
+      iframe.style.height = '100%';
       iframe.style.border = 'none';
       iframe.style.borderRadius = '8px';
       iframe.style.overflow = 'hidden';
+      // iframe.setAttribute('scrolling', 'no');
       
       this.container.nativeElement.appendChild(iframe);
       
