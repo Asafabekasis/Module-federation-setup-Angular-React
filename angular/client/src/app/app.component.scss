@@ -1,0 +1,211 @@
+// Header Styles
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  .messages {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    .message-badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+
+      &.react {
+        border: 2px solid #00acc1;
+      }
+
+      &.angular {
+        border: 2px solid #9c27b0;
+      }
+    }
+  }
+}
+
+// Control Panel Styles
+.control-panel {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid;
+
+    &.react-group {
+      border-left-color: #00acc1;
+    }
+
+    &.angular-group {
+      border-left-color: #9c27b0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &.react-label {
+        color: #00838f;
+      }
+
+      &.angular-label {
+        color: #6a1b9a;
+      }
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      input {
+        flex: 1;
+        max-width: 400px;
+        padding: 12px 16px;
+        font-size: 15px;
+        border-radius: 6px;
+        border: 2px solid #ddd;
+        transition: all 0.3s ease;
+        font-family: inherit;
+
+        &:focus {
+          outline: none;
+          border-color: currentColor;
+          box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        &.react-input {
+          border-color: #00acc1;
+
+          &:focus {
+            border-color: #00acc1;
+            box-shadow: 0 0 0 3px rgba(0, 172, 193, 0.2);
+          }
+        }
+
+        &.angular-input {
+          border-color: #9c27b0;
+
+          &:focus {
+            border-color: #9c27b0;
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.2);
+          }
+        }
+      }
+
+      button {
+        padding: 12px 24px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        &.react-btn {
+          background: linear-gradient(135deg, #00acc1 0%, #00838f 100%);
+
+          &:hover {
+            background: linear-gradient(135deg, #00838f 0%, #006064 100%);
+          }
+        }
+
+        &.angular-btn {
+          background: linear-gradient(135deg, #9c27b0 0%, #6a1b9a 100%);
+
+          &:hover {
+            background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Content Area
+.content-area {
+  padding: 0 20px;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .header {
+    padding: 20px;
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  .control-panel {
+    padding: 20px;
+
+    .input-group .input-row {
+      flex-direction: column;
+      align-items: stretch;
+
+      input {
+        max-width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

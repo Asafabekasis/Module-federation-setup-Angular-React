@@ -15,17 +15,13 @@ declare global {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div #reactContainer></div>
-    <div *ngIf="messageFromReact" style="margin-top: 20px; padding: 20px; background: #e0f7fa; border-radius: 8px; border: 2px solid #00acc1;">
-      <h3 style="color: #00695c;">Message from React:</h3>
-      <p style="font-size: 18px; font-weight: bold;">{{ messageFromReact }}</p>
-    </div>
+    <div #reactContainer class="wrapper-container"></div>
   `,
   styles: [`
-    :host {
-      display: block;
+    .wrapper-container {
       width: 100%;
       height: 100%;
+      min-height: 400px;
     }
   `]
 })

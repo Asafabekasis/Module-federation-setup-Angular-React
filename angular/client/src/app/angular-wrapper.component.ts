@@ -8,15 +8,39 @@ declare const window: any;
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div style="padding: 20px; background: #f3e5f5; border-radius: 8px; margin: 20px 0;">
-      <div #angularContainer></div>
-      <div *ngIf="errorMessage" style="padding: 20px; background: #ffebee; color: #c62828; border-radius: 8px; margin-top: 20px;">
-        <h3>❌ Error Loading Angular Remote</h3>
-        <p>{{ errorMessage }}</p>
-        <p>Make sure the Angular remote is running on http://localhost:61799</p>
-      </div>
+    <div #angularContainer class="angular-wrapper-container"></div>
+    <div *ngIf="errorMessage" class="error-message">
+      <h3>❌ Error Loading Angular Remote</h3>
+      <p>{{ errorMessage }}</p>
+      <p>Make sure the Angular remote is running on http://localhost:61799</p>
     </div>
   `,
+  styles: [`
+    .angular-wrapper-container {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+    }
+
+    .error-message {
+      padding: 20px;
+      background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+      color: #c62828;
+      border-radius: 8px;
+      margin-top: 20px;
+      border: 2px solid #ef5350;
+    }
+
+    .error-message h3 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .error-message p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  `]
 })
 export class AngularWrapperComponent implements OnInit {
   @ViewChild('angularContainer', { read: ElementRef, static: true }) 
@@ -35,8 +59,8 @@ export class AngularWrapperComponent implements OnInit {
       const iframe = document.createElement('iframe');
       iframe.src = 'http://localhost:61799';
       iframe.style.width = '100%';
-      iframe.style.height = '400px';
-      iframe.style.border = '2px solid #9c27b0';
+      iframe.style.height = '500px';
+      iframe.style.border = 'none';
       iframe.style.borderRadius = '8px';
       
       this.container.nativeElement.appendChild(iframe);
